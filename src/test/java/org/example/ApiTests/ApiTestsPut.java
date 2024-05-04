@@ -12,7 +12,7 @@ import static org.example.utils.ConfigReader.*;
 
 public class ApiTestsPut extends BaseTest {
 
-    @Test(description = "put /api/users/2, statusCOde is 200")
+    @Test(description = "put /api/users/2, statusCode is 200")
     public void putUpdateUser() {
         User user = new User(NAME, JOB_UPDATE);
 
