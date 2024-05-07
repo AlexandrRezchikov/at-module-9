@@ -14,6 +14,11 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <suiteXml>testng.xml</suiteXml>
         <aspectj.version>1.9.21.1</aspectj.version>
+        <rest-assured.version>5.4.0</rest-assured.version>
+        <json-path.version>5.4.0</json-path.version>
+        <allure-rest-assured.version>2.27.0</allure-rest-assured.version>
+        <allure-testng.version>2.27.0</allure-testng.version>
+        <lombok.version>1.18.32</lombok.version>
         <maven-surefire-plugin.version>3.2.5</maven-surefire-plugin.version>
     </properties>
 
@@ -27,13 +32,13 @@
         <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
-            <version>5.4.0</version>
+            <version>${rest-assured.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>json-path</artifactId>
-            <version>5.4.0</version>
+            <version>${json-path.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -55,7 +60,7 @@
         <dependency>
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-rest-assured</artifactId>
-            <version>2.27.0</version>
+            <version>${allure-rest-assured.version}</version>
         </dependency>
         <dependency>
             <groupId>org.aspectj</groupId>
@@ -65,12 +70,12 @@
         <dependency>
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-testng</artifactId>
-            <version>2.27.0</version>
+            <version>${allure-testng.version}</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.32</version>
+            <version>${lombok.version}</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
@@ -82,7 +87,7 @@
                 <version>${maven-surefire-plugin.version}</version>
                 <configuration>
                     <argLine>
-                        -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/1.9.21/aspectjweaver-1.9.21.jar"
+                        -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
                     </argLine>
                     <systemProperties>
                         <property>
@@ -98,7 +103,7 @@
                     <dependency>
                         <groupId>org.aspectj</groupId>
                         <artifactId>aspectjweaver</artifactId>
-                        <version>1.9.21</version>
+                        <version>${aspectj.version}</version>
                     </dependency>
                 </dependencies>
             </plugin>
