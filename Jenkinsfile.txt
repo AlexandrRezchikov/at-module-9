@@ -1,0 +1,35 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch:'version1', url:'https://github.com/AlexandrRezchikov/at-module-9.git'
+            }
+        }
+        stage('Build') {
+            steps {
+                bat 'mvn clean'
+            }
+        }
+        stage('Test') {
+            steps {
+                bat 'mvn test'
+            }
+        }
+    }
+    post {
+        always {
+            allure includeProperties:
+                 false,
+                 jdk: '',
+                 results: [[path: 'target/allure-results']]
+        }
+        success {
+            echo 'The pipeline completed successfully!'
+        }
+        failure {
+            echo 'The pipeline failed!'
+        }
+    }
+}
