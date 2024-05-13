@@ -2,9 +2,14 @@ pipeline {
     agent any
 
     stages {
+        stage('Checkout') {
+            steps {
+                git branch:'version1', url:'https://github.com/AlexandrRezchikov/at-module-9.git'
+            }
+        }
         stage('Build') {
             steps {
-                bat '${mvnHome}/bin/mvn clean compile'
+                bat 'mvn clean'
             }
         }
         stage('Test') {
@@ -12,19 +17,19 @@ pipeline {
                 bat 'mvn test'
             }
         }
-        stage('Generate Allure Report') {
-            steps {
-                bat 'mvn allure:report'
-            }
-        }
     }
     post {
         always {
-            allure([
-                includeProperties: false,
-                jdk: '',
-                results: [[path: 'target/allure-results']]
-            ])
+            allure includeProperties:
+                 false,
+                 jdk: '',
+                 results: [[path: 'target/allure-results']]
+        }
+        success {
+            echo 'The pipeline completed successfully!'
+        }
+        failure {
+            echo 'The pipeline failed!'
         }
     }
 }
