@@ -1,10 +1,14 @@
 pipeline {
     agent any
 
+    parameters {
+        string(name: 'BRANCH_NAME', defaultValue: 'version1', description: 'Branch to build')
+    }
+
     stages {
         stage('Checkout') {
             steps {
-                git branch:'version1', url:'https://github.com/AlexandrRezchikov/at-module-9.git'
+                git branch:"${params.BRANCH_NAME}", url:'https://github.com/AlexandrRezchikov/at-module-9.git'
             }
         }
         stage('Build') {
@@ -20,6 +24,7 @@ pipeline {
     }
     post {
         always {
+            archiveArtifacts artifacts: 'target/allure-results/*', fingerprint: true
             allure includeProperties:
                  false,
                  jdk: '',
