@@ -4,7 +4,7 @@ import org.example.BaseTest;
 import org.testng.annotations.Test;
 
 import static io.restassured.RestAssured.given;
-import static org.example.endpoints.Endpoints.DELETE_USER;
+import static org.example.endpoints.Endpoints.SINGLE_USER;
 import static org.hamcrest.Matchers.emptyString;
 
 public class ApiTestsDelete extends BaseTest {
@@ -13,8 +13,9 @@ public class ApiTestsDelete extends BaseTest {
     public void deleteUser() {
 
         given()
+                .pathParam("user", 2)
                 .when()
-                .delete(DELETE_USER)
+                .delete(SINGLE_USER)
                 .then()
                 .log().all()
                 .statusCode(204)

@@ -7,7 +7,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import static io.restassured.RestAssured.given;
-import static org.example.endpoints.Endpoints.PUT_UPDATE_USER;
+import static org.example.endpoints.Endpoints.SINGLE_USER;
 import static org.example.utils.ConfigReader.*;
 
 public class ApiTestsPut extends BaseTest {
@@ -17,9 +17,10 @@ public class ApiTestsPut extends BaseTest {
         User user = new User(NAME, JOB_UPDATE);
 
         UserResponse userResponse = given()
+                .pathParam("user", 2)
                 .body(user)
                 .when()
-                .put(PUT_UPDATE_USER)
+                .put(SINGLE_USER)
                 .then().log().all()
                 .statusCode(200)
                 .extract().body().as(UserResponse.class);

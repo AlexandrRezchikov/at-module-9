@@ -16,8 +16,9 @@ public class ApiTestsGet extends BaseTest {
     public void getUsers() {
 
         List<UserData> users = given()
+                .pathParam("page", 2)
                 .when()
-                .get(GET_LIST_USERS)
+                .get(USERS_PAGE)
                 .then().log().all()
                 .statusCode(200)
                 .extract().body().jsonPath().getList("data", UserData.class);
@@ -30,8 +31,9 @@ public class ApiTestsGet extends BaseTest {
     public void getUserId() {
 
         Root response = given()
+                .pathParam("user", 2)
                 .when()
-                .get(GET_SINGLE_USER)
+                .get(SINGLE_USER)
                 .then().log().all()
                 .statusCode(200)
                 .extract().body().as(Root.class);
