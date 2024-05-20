@@ -1,5 +1,6 @@
 package org.example.ApiTests;
 
+import com.google.gson.Gson;
 import org.example.BaseTest;
 import org.example.pojo.*;
 import org.testng.Assert;
@@ -16,9 +17,9 @@ public class ApiTestsGet extends BaseTest {
     public void getUsers() {
 
         List<UserData> users = given()
-                .pathParam("page", 2)
+                .queryParam("page", 2)
                 .when()
-                .get(USERS_PAGE)
+                .get(USERS)
                 .then().log().all()
                 .statusCode(200)
                 .extract().body().jsonPath().getList("data", UserData.class);
@@ -30,15 +31,17 @@ public class ApiTestsGet extends BaseTest {
     @Test(description = "get /users/2, statusCode is 200")
     public void getUserId() {
 
-        Root response = given()
+        String response = given()
                 .pathParam("user", 2)
                 .when()
                 .get(SINGLE_USER)
                 .then().log().all()
                 .statusCode(200)
-                .extract().body().as(Root.class);
+                .extract().body().asString();
 
-        UserData actualUserData = response.getData();
+        Gson gson = new Gson();
+        Root root = gson.fromJson(response, Root.class);
+        UserData actualUserData = root.getData();
         UserData expectedUserData = new UserData();
 
         expectedUserData.setId(actualUserData.getId());
@@ -49,4 +52,5 @@ public class ApiTestsGet extends BaseTest {
 
         Assert.assertEquals(actualUserData, expectedUserData);
     }
+
 }
