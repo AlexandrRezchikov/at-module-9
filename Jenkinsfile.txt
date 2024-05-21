@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch:"${params.BRANCH_NAME}", url:'https://github.com/AlexandrRezchikov/at-module-9.git'
+                git branch: "${params.BRANCH_NAME}", url: 'https://github.com/AlexandrRezchikov/at-module-9.git'
             }
         }
         stage('Build') {
@@ -33,13 +33,13 @@ pipeline {
                 }
             }
         }
-        post {
-            success {
-                echo 'The pipeline completed successfully!'
-            }
-            failure {
-                echo 'The pipeline failed!'
-            }
+    }
+    post {
+        success {
+            echo 'The pipeline completed successfully!'
+        }
+        failure {
+            echo 'The pipeline failed!'
         }
     }
 }
