@@ -21,15 +21,19 @@ pipeline {
                 bat 'mvn test'
             }
         }
-    }
-    post {
-        always {
-            archiveArtifacts artifacts: 'target/allure-results/*', fingerprint: true
-            allure includeProperties:
-                 false,
-                 jdk: '',
-                 results: [[path: 'target/allure-results']]
+        stage('Report') {
+            steps {
+                script {
+                    allure includeProperties: false, jdk: '', results: [[path: 'target/allure-results']]
+                }
+            }
+            post {
+                always {
+                    archiveArtifacts artifacts: 'target/allure-results/*', fingerprint: true
+                }
+            }
         }
+    post {
         success {
             echo 'The pipeline completed successfully!'
         }
