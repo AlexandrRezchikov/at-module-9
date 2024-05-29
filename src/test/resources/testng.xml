@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="All Test Suite" parallel="classes" thread-count="4">
+    <test name="Api Tests reqres">
+        <classes>
+            <class name="org.example.ApiTests.ApiTestsGet"/>
+            <class name="org.example.ApiTests.ApiTestsPost"/>
+            <class name="org.example.ApiTests.ApiTestsPut"/>
+            <class name="org.example.ApiTests.ApiTestsDelete"/>
+        </classes>
+    </test>
+</suite>
